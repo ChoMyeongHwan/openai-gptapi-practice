@@ -1,6 +1,7 @@
 ####### lib 설치 ##########
 # pip install openai
 # pip install streamlit
+# pip install python-dotenv
 ###########################
 # 실행 : streamlit run dalle.py
 ###########################
@@ -9,11 +10,22 @@ import io
 import base64
 from openai import OpenAI
 from PIL import Image
-from env import openai_key 
 import os  # os 모듈 추가
+from dotenv import load_dotenv
 
+# from env import openai_key -> 파이썬 파일에서 불러오기 
+# client = OpenAI(
+#     api_key = openai_key.api_key
+# )
+
+# load .env -> 권장되는 방식
+load_dotenv()
+
+API_KEY = os.environ.get("OPENAI_API_KEY")
+# print(API_KEY)
 client = OpenAI(
-    api_key = openai_key.api_key
+    # api_key="키값"
+    api_key=API_KEY,
 )
 
 def get_image(prompt):
